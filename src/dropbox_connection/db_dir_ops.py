@@ -70,12 +70,37 @@ class DBDir( do.RemoteDir ):
         assert valid
 
     @staticmethod
-    def upload_dir( path: str, conn: dropbox_connection.Connection, **kwargs ):
-        pass
+    def upload_dir( path: str, conn: dropbox_connection.Connection, *args,
+                        destination: str = '', **kwargs ):
+
+        local_Dir = do.Dir( destination )
+        local_Paths = local_Dir.walk_contents_Paths( block_dirs=True )
+
+        valid = True
+        for local_Path in local_Paths:
+            rel_Path = local_Path.get_rel( local_Dir )
+            remote_Path = DBPath( path = do.join( path, rel_Path.path ), conn = conn )
+            if not remote_Path.upload( *args, Destination = local_Path, **kwargs ):
+                valid = False
+
+        assert valid
 
     @staticmethod
-    def download_dir( path: str, conn: dropbox_connection.Connection, **kwargs ):
-        pass
+    def download_dir( path: str, conn: dropbox_connection.Connection, *args,
+                        destination: str = '', **kwargs ):
+
+        remote_Dir = DBDir( path = path, conn = conn )
+        remote_Paths = remote_Dir.walk_contents_Paths( block_dirs=True )
+        local_Dir = do.Dir( destination )
+        
+        valid = True
+        for remote_Path in remote_Paths:
+            rel_Path = remote_Path.get_rel( remote_Dir )
+            local_Path = do.Path( local_Dir.join( rel_Path.path ) )
+            if not remote_Path.download( *args, Destination = local_Path, **kwargs ):
+                valid = False
+
+        assert valid
 
     @staticmethod
     def list_files_dir( path: str, conn: dropbox_connection.Connection,
@@ -111,7 +136,6 @@ class DBDir( do.RemoteDir ):
 
 
 
-
 class DBPath( DBDir, do.RemotePath ):
 
     STATIC_METHOD_SUFFIX = '_path'
@@ -128,7 +152,10 @@ class DBPath( DBDir, do.RemotePath ):
 
     @staticmethod
     def exists_path( path: str, conn: dropbox_connection.Connection, **kwargs ):
-        pass
+        if path == '': #metadata for root folder isn't supported, just return True
+            return 
+
+        conn.db.files_get_metadata( path )
 
     @staticmethod
     def upload_path( path: str, conn: dropbox_connection.Connection, *args,
@@ -153,16 +180,39 @@ class DBPath( DBDir, do.RemotePath ):
         return result.size
 
     @staticmethod
-    def write_path( path: str, conn: dropbox_connection.Connection, **kwargs ):
-        pass
+    def write_path( path: str, conn: dropbox_connection.Connection, mode = 'w', **kwargs ):
+
+        self = DBPath( path = path, conn = conn )
+        temp_Path = do.Path( 'TEMP' )
+
+        if not temp_Path.write( mode = mode, **kwargs ):
+            assert False
+        
+        if not self.upload( Destination = temp_Path, **kwargs ):
+            assert False
+
+        if not temp_Path.remove( **kwargs ):
+            assert False
 
     @staticmethod
-    def create_path( path: str, conn: dropbox_connection.Connection, **kwargs ):
-        pass
+    def create_path( path: str, conn: dropbox_connection.Connection, *args, string: str = '', mode = 'w', **kwargs ):
+
+        self = DBPath( path = path, conn = conn )
+        if not self.write( string = string, mode = mode, **kwargs ):
+            assert False
 
     @staticmethod
-    def read_path( path: str, conn: dropbox_connection.Connection, **kwargs ):
-        pass
+    def read_path( path: str, conn: dropbox_connection.Connection, *args, **kwargs ):
+
+        temp_Path = do.Path( 'TEMP' )
+
+        self = DBPath( path = path, conn = conn )
+        self.download( Destination = temp_Path, **kwargs )
+            
+        contents = temp_Path.read( **kwargs )
+        temp_Path.remove( override = True, **kwargs )
+                
+        return contents
 
     @staticmethod
     def copy_path( path: str, conn: dropbox_connection.Connection, *args,
