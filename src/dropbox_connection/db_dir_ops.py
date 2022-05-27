@@ -27,7 +27,7 @@ class DBDir( do.RemoteDir ):
 
     @staticmethod
     def create_dir( path: str, conn: dropbox_connection.Connection, **kwargs ):
-        conn.db.files_create_folder( path )
+        conn.db.files_create_folder_v2( path )
 
     @staticmethod
     def exists_dir( path: str, conn: dropbox_connection.Connection, **kwargs ):
