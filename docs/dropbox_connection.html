@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dropbox_connection package &mdash; kabbes_dropbox_connection 0.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="src" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            kabbes_dropbox_connection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">dropbox_connection package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dropbox_connection.Connection">dropbox_connection.Connection module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.Connection.Connection"><code class="docutils literal notranslate"><span class="pre">Connection</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dropbox_connection.db_dir_ops">dropbox_connection.db_dir_ops module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.db_dir_ops.DBDir"><code class="docutils literal notranslate"><span class="pre">DBDir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.db_dir_ops.DBDirs"><code class="docutils literal notranslate"><span class="pre">DBDirs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.db_dir_ops.DBPath"><code class="docutils literal notranslate"><span class="pre">DBPath</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.db_dir_ops.DBPaths"><code class="docutils literal notranslate"><span class="pre">DBPaths</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dropbox_connection.dropbox_support_functions">dropbox_connection.dropbox_support_functions module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.dropbox_support_functions.create_sharing_folder"><code class="docutils literal notranslate"><span class="pre">create_sharing_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.dropbox_support_functions.get_access_level"><code class="docutils literal notranslate"><span class="pre">get_access_level()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.dropbox_support_functions.get_add_member"><code class="docutils literal notranslate"><span class="pre">get_add_member()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.dropbox_support_functions.get_member_selector"><code class="docutils literal notranslate"><span class="pre">get_member_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.dropbox_support_functions.get_shared_folder_id"><code class="docutils literal notranslate"><span class="pre">get_shared_folder_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.dropbox_support_functions.get_url_from_link_object"><code class="docutils literal notranslate"><span class="pre">get_url_from_link_object()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.dropbox_support_functions.sharing_add_folder_member"><code class="docutils literal notranslate"><span class="pre">sharing_add_folder_member()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.dropbox_support_functions.sharing_create_shared_link"><code class="docutils literal notranslate"><span class="pre">sharing_create_shared_link()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropbox_connection.dropbox_support_functions.user_choose_access_level"><code class="docutils literal notranslate"><span class="pre">user_choose_access_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dropbox_connection">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">kabbes_dropbox_connection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+      <li class="breadcrumb-item active">dropbox_connection package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dropbox_connection.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dropbox-connection-package">
+<h1>dropbox_connection package<a class="headerlink" href="#dropbox-connection-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-dropbox_connection.Connection">
+<span id="dropbox-connection-connection-module"></span><h2>dropbox_connection.Connection module<a class="headerlink" href="#module-dropbox_connection.Connection" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="dropbox_connection.Connection.Connection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dropbox_connection.Connection.</span></span><span class="sig-name descname"><span class="pre">Connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/Connection.html#Connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.Connection.Connection" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ParentClass</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.Connection.Connection.get_db_conn">
+<span class="sig-name descname"><span class="pre">get_db_conn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/Connection.html#Connection.get_db_conn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.Connection.Connection.get_db_conn" title="Permalink to this definition"></a></dt>
+<dd><p>suggested to get connection with oauth2_access_token</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-dropbox_connection.db_dir_ops">
+<span id="dropbox-connection-db-dir-ops-module"></span><h2>dropbox_connection.db_dir_ops module<a class="headerlink" href="#module-dropbox_connection.db_dir_ops" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dropbox_connection.db_dir_ops.</span></span><span class="sig-name descname"><span class="pre">DBDir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBDir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RemoteDir</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.DEFAULT_KWARGS">
+<span class="sig-name descname"><span class="pre">DEFAULT_KWARGS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.DEFAULT_KWARGS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.INSTANCE_METHOD_ATTS">
+<span class="sig-name descname"><span class="pre">INSTANCE_METHOD_ATTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['path',</span> <span class="pre">'conn']</span></em><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.INSTANCE_METHOD_ATTS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.STATIC_METHOD_SUFFIX">
+<span class="sig-name descname"><span class="pre">STATIC_METHOD_SUFFIX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'_dir'</span></em><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.STATIC_METHOD_SUFFIX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.copy_dir">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">copy_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBDir.copy_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.copy_dir" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.create_dir">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBDir.create_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.create_dir" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.download_dir">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">download_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBDir.download_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.download_dir" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.exists_dir">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exists_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBDir.exists_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.exists_dir" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.get_size_dir">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_size_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBDir.get_size_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.get_size_dir" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.list_files_dir">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_files_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_off</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBDir.list_files_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.list_files_dir" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.list_subfolders_dir">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_subfolders_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_off</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBDir.list_subfolders_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.list_subfolders_dir" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.remove_dir">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBDir.remove_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.remove_dir" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDir.upload_dir">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">upload_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBDir.upload_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDir.upload_dir" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBDirs">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dropbox_connection.db_dir_ops.</span></span><span class="sig-name descname"><span class="pre">DBDirs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBDirs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBDirs" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RemoteDirs</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dropbox_connection.db_dir_ops.</span></span><span class="sig-name descname"><span class="pre">DBPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dropbox_connection.db_dir_ops.DBDir" title="dropbox_connection.db_dir_ops.DBDir"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBDir</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">RemotePath</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.INSTANCE_METHOD_ATTS">
+<span class="sig-name descname"><span class="pre">INSTANCE_METHOD_ATTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['path',</span> <span class="pre">'conn']</span></em><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.INSTANCE_METHOD_ATTS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.STATIC_METHOD_SUFFIX">
+<span class="sig-name descname"><span class="pre">STATIC_METHOD_SUFFIX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'_path'</span></em><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.STATIC_METHOD_SUFFIX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.copy_path">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">copy_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPath.copy_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.copy_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.create_path">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPath.create_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.create_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.download_path">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">download_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPath.download_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.download_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.exists_path">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exists_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPath.exists_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.exists_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.get_size_path">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_size_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPath.get_size_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.get_size_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.read_path">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPath.read_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.read_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.remove_path">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPath.remove_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.remove_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.rename_path">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rename_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_bucket</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPath.rename_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.rename_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.upload_path">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">upload_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPath.upload_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.upload_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPath.write_path">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dropbox_connection.Connection.Connection" title="dropbox_connection.Connection.Connection"><span class="pre">Connection</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPath.write_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPath.write_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dropbox_connection.db_dir_ops.DBPaths">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dropbox_connection.db_dir_ops.</span></span><span class="sig-name descname"><span class="pre">DBPaths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/db_dir_ops.html#DBPaths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.db_dir_ops.DBPaths" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dropbox_connection.db_dir_ops.DBDirs" title="dropbox_connection.db_dir_ops.DBDirs"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBDirs</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">RemotePaths</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-dropbox_connection.dropbox_support_functions">
+<span id="dropbox-connection-dropbox-support-functions-module"></span><h2>dropbox_connection.dropbox_support_functions module<a class="headerlink" href="#module-dropbox_connection.dropbox_support_functions" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dropbox_connection.dropbox_support_functions.create_sharing_folder">
+<span class="sig-prename descclassname"><span class="pre">dropbox_connection.dropbox_support_functions.</span></span><span class="sig-name descname"><span class="pre">create_sharing_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/dropbox_support_functions.html#create_sharing_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.dropbox_support_functions.create_sharing_folder" title="Permalink to this definition"></a></dt>
+<dd><p>create a sharing folder at the given dropbox dir</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropbox_connection.dropbox_support_functions.get_access_level">
+<span class="sig-prename descclassname"><span class="pre">dropbox_connection.dropbox_support_functions.</span></span><span class="sig-name descname"><span class="pre">get_access_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_level_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/dropbox_support_functions.html#get_access_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.dropbox_support_functions.get_access_level" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropbox_connection.dropbox_support_functions.get_add_member">
+<span class="sig-prename descclassname"><span class="pre">dropbox_connection.dropbox_support_functions.</span></span><span class="sig-name descname"><span class="pre">get_add_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member_selector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccessLevel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/dropbox_support_functions.html#get_add_member"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.dropbox_support_functions.get_add_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropbox_connection.dropbox_support_functions.get_member_selector">
+<span class="sig-prename descclassname"><span class="pre">dropbox_connection.dropbox_support_functions.</span></span><span class="sig-name descname"><span class="pre">get_member_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email_address</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/dropbox_support_functions.html#get_member_selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.dropbox_support_functions.get_member_selector" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropbox_connection.dropbox_support_functions.get_shared_folder_id">
+<span class="sig-prename descclassname"><span class="pre">dropbox_connection.dropbox_support_functions.</span></span><span class="sig-name descname"><span class="pre">get_shared_folder_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sharing_folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/dropbox_support_functions.html#get_shared_folder_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.dropbox_support_functions.get_shared_folder_id" title="Permalink to this definition"></a></dt>
+<dd><p>get the shared folder id</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropbox_connection.dropbox_support_functions.get_url_from_link_object">
+<span class="sig-prename descclassname"><span class="pre">dropbox_connection.dropbox_support_functions.</span></span><span class="sig-name descname"><span class="pre">get_url_from_link_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Link</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/dropbox_support_functions.html#get_url_from_link_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.dropbox_support_functions.get_url_from_link_object" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropbox_connection.dropbox_support_functions.sharing_add_folder_member">
+<span class="sig-prename descclassname"><span class="pre">dropbox_connection.dropbox_support_functions.</span></span><span class="sig-name descname"><span class="pre">sharing_add_folder_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shared_folder_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/dropbox_support_functions.html#sharing_add_folder_member"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.dropbox_support_functions.sharing_add_folder_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropbox_connection.dropbox_support_functions.sharing_create_shared_link">
+<span class="sig-prename descclassname"><span class="pre">dropbox_connection.dropbox_support_functions.</span></span><span class="sig-name descname"><span class="pre">sharing_create_shared_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/dropbox_support_functions.html#sharing_create_shared_link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.dropbox_support_functions.sharing_create_shared_link" title="Permalink to this definition"></a></dt>
+<dd><p>create a shared link of a dropbox path. returns a path link
+path is a path to a dropbox folder. ex: Pictures/test_folder</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dropbox_connection.dropbox_support_functions.user_choose_access_level">
+<span class="sig-prename descclassname"><span class="pre">dropbox_connection.dropbox_support_functions.</span></span><span class="sig-name descname"><span class="pre">user_choose_access_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dropbox_connection/dropbox_support_functions.html#user_choose_access_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dropbox_connection.dropbox_support_functions.user_choose_access_level" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-dropbox_connection">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dropbox_connection" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="src" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, James Kabbes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

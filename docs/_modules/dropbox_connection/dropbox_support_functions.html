@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dropbox_connection.dropbox_support_functions &mdash; kabbes_dropbox_connection 0.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            kabbes_dropbox_connection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">kabbes_dropbox_connection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dropbox_connection.dropbox_support_functions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dropbox_connection.dropbox_support_functions</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">dropbox</span>
+<span class="kn">import</span> <span class="nn">py_starter</span> <span class="k">as</span> <span class="nn">ps</span>
+<span class="kn">import</span> <span class="nn">dir_ops</span> <span class="k">as</span> <span class="nn">do</span>
+<span class="kn">from</span> <span class="nn">dir_ops</span> <span class="kn">import</span> <span class="n">Dir</span>
+<span class="kn">from</span> <span class="nn">dir_ops</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="create_sharing_folder"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.dropbox_support_functions.create_sharing_folder">[docs]</a><span class="k">def</span> <span class="nf">create_sharing_folder</span><span class="p">(</span> <span class="n">db_dir</span> <span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;create a sharing folder at the given dropbox dir&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">Dropbox</span><span class="o">.</span><span class="n">sharing_share_folder</span><span class="p">(</span> <span class="n">db_dir</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="get_access_level"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.dropbox_support_functions.get_access_level">[docs]</a><span class="k">def</span> <span class="nf">get_access_level</span><span class="p">(</span> <span class="n">access_level_key</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">access_level_key</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">access_level_key</span> <span class="o">=</span> <span class="n">user_choose_access_level</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">dropbox</span><span class="o">.</span><span class="n">sharing</span><span class="o">.</span><span class="n">AccessLevel</span><span class="p">(</span> <span class="n">access_level_key</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="user_choose_access_level"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.dropbox_support_functions.user_choose_access_level">[docs]</a><span class="k">def</span> <span class="nf">user_choose_access_level</span><span class="p">():</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;editor&#39;</span><span class="p">,</span><span class="s1">&#39;viewer&#39;</span><span class="p">,</span><span class="s1">&#39;owner&#39;</span><span class="p">,</span><span class="s1">&#39;other&#39;</span><span class="p">]</span>
+
+    <span class="n">ps</span><span class="o">.</span><span class="n">print_for_loop</span><span class="p">(</span> <span class="n">options</span> <span class="p">)</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">get_int_input</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">options</span><span class="p">),</span> <span class="n">prompt</span> <span class="o">=</span> <span class="s1">&#39;Choose the access level&#39;</span> <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">options</span><span class="p">[</span><span class="n">ind</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="get_shared_folder_id"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.dropbox_support_functions.get_shared_folder_id">[docs]</a><span class="k">def</span> <span class="nf">get_shared_folder_id</span><span class="p">(</span> <span class="n">sharing_folder</span> <span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;get the shared folder id&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">sharing_folder</span><span class="o">.</span><span class="n">get_complete</span><span class="p">()</span><span class="o">.</span><span class="n">shared_folder_id</span></div>
+
+<div class="viewcode-block" id="get_member_selector"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.dropbox_support_functions.get_member_selector">[docs]</a><span class="k">def</span> <span class="nf">get_member_selector</span><span class="p">(</span> <span class="n">email_address</span> <span class="p">):</span>
+
+    <span class="k">return</span> <span class="n">dropbox</span><span class="o">.</span><span class="n">sharing</span><span class="o">.</span><span class="n">MemberSelector</span><span class="o">.</span><span class="n">email</span><span class="p">(</span> <span class="n">email_address</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="get_add_member"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.dropbox_support_functions.get_add_member">[docs]</a><span class="k">def</span> <span class="nf">get_add_member</span><span class="p">(</span> <span class="n">member_selector</span><span class="p">,</span> <span class="n">AccessLevel</span> <span class="p">):</span>
+
+    <span class="n">add_member</span> <span class="o">=</span> <span class="n">dropbox</span><span class="o">.</span><span class="n">sharing</span><span class="o">.</span><span class="n">AddMember</span><span class="p">(</span> <span class="n">member_selector</span><span class="p">,</span> <span class="n">access_level</span> <span class="o">=</span> <span class="n">AccessLevel</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="n">add_member</span></div>
+
+<div class="viewcode-block" id="sharing_add_folder_member"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.dropbox_support_functions.sharing_add_folder_member">[docs]</a><span class="k">def</span> <span class="nf">sharing_add_folder_member</span><span class="p">(</span> <span class="n">shared_folder_id</span><span class="p">,</span> <span class="n">add_member</span><span class="p">,</span> <span class="n">custom_message</span> <span class="p">):</span>
+
+    <span class="n">Dropbox</span><span class="o">.</span><span class="n">sharing_add_folder_member</span><span class="p">(</span> <span class="n">shared_folder_id</span><span class="p">,</span> <span class="p">[</span><span class="n">add_member</span><span class="p">],</span> <span class="n">quiet</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">custom_message</span> <span class="o">=</span> <span class="n">custom_message</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="get_url_from_link_object"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.dropbox_support_functions.get_url_from_link_object">[docs]</a><span class="k">def</span> <span class="nf">get_url_from_link_object</span><span class="p">(</span> <span class="n">Link</span> <span class="p">):</span>
+
+    <span class="k">return</span> <span class="n">Link</span><span class="o">.</span><span class="n">url</span></div>
+
+<div class="viewcode-block" id="sharing_create_shared_link"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.dropbox_support_functions.sharing_create_shared_link">[docs]</a><span class="k">def</span> <span class="nf">sharing_create_shared_link</span><span class="p">(</span> <span class="n">db_path</span><span class="p">,</span> <span class="n">short_url</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">return_url</span> <span class="o">=</span> <span class="kc">True</span> <span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39; create a shared link of a dropbox path. returns a path link</span>
+<span class="sd">    path is a path to a dropbox folder. ex: Pictures/test_folder</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">Link</span> <span class="o">=</span> <span class="n">Dropbox</span><span class="o">.</span><span class="n">sharing_create_shared_link</span><span class="p">(</span> <span class="n">db_path</span><span class="p">,</span> <span class="n">short_url</span> <span class="o">=</span> <span class="n">short_url</span> <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">return_url</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">get_url_from_link_object</span><span class="p">(</span> <span class="n">Link</span> <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Link</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, James Kabbes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

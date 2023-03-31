@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dropbox_connection.db_dir_ops &mdash; kabbes_dropbox_connection 0.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            kabbes_dropbox_connection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">kabbes_dropbox_connection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dropbox_connection.db_dir_ops</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dropbox_connection.db_dir_ops</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">dir_ops</span> <span class="k">as</span> <span class="nn">do</span>
+<span class="kn">import</span> <span class="nn">py_starter</span> <span class="k">as</span> <span class="nn">ps</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">dropbox_connection</span>
+<span class="kn">import</span> <span class="nn">dropbox</span>
+
+<div class="viewcode-block" id="DBDir"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBDir">[docs]</a><span class="k">class</span> <span class="nc">DBDir</span><span class="p">(</span> <span class="n">do</span><span class="o">.</span><span class="n">RemoteDir</span> <span class="p">):</span>
+
+    <span class="n">STATIC_METHOD_SUFFIX</span> <span class="o">=</span> <span class="s1">&#39;_dir&#39;</span>
+    <span class="n">INSTANCE_METHOD_ATTS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">,</span><span class="s1">&#39;conn&#39;</span><span class="p">]</span>
+    <span class="n">DEFAULT_KWARGS</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">joined_atts</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">merge_dicts</span><span class="p">(</span> <span class="n">DBDir</span><span class="o">.</span><span class="n">DEFAULT_KWARGS</span><span class="p">,</span> <span class="n">kwargs</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_atts</span><span class="p">(</span> <span class="n">joined_atts</span> <span class="p">)</span>
+
+        <span class="n">do</span><span class="o">.</span><span class="n">RemoteDir</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inherited_kwargs</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;conn&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DIR_CLASS</span> <span class="o">=</span> <span class="n">DBDir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PATH_CLASS</span> <span class="o">=</span> <span class="n">DBPath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DIRS_CLASS</span> <span class="o">=</span> <span class="n">DBDirs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PATHS_CLASS</span> <span class="o">=</span> <span class="n">DBPaths</span>
+
+<div class="viewcode-block" id="DBDir.create_dir"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBDir.create_dir">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">create_dir</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_create_folder_v2</span><span class="p">(</span> <span class="n">path</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="DBDir.exists_dir"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBDir.exists_dir">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">exists_dir</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span> <span class="c1">#metadata for root folder isn&#39;t supported, just return True</span>
+            <span class="k">return</span> 
+
+        <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_get_metadata</span><span class="p">(</span> <span class="n">path</span> <span class="p">)</span></div>
+    
+<div class="viewcode-block" id="DBDir.get_size_dir"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBDir.get_size_dir">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_size_dir</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+        
+        <span class="bp">self</span> <span class="o">=</span> <span class="n">DBDir</span><span class="p">(</span> <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">,</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">conn</span> <span class="p">)</span>
+        <span class="n">Paths_inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_contents_Paths</span><span class="p">(</span> <span class="n">block_dirs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">block_paths</span><span class="o">=</span><span class="kc">False</span> <span class="p">)</span>
+
+        <span class="nb">bytes</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">Path_inst</span> <span class="ow">in</span> <span class="n">Paths_inst</span><span class="p">:</span>
+            <span class="n">Path_inst</span><span class="o">.</span><span class="n">get_size</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+            <span class="nb">bytes</span> <span class="o">+=</span> <span class="n">Path_inst</span><span class="o">.</span><span class="n">size</span> 
+        
+        <span class="k">return</span> <span class="nb">bytes</span></div>
+
+<div class="viewcode-block" id="DBDir.remove_dir"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBDir.remove_dir">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_dir</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_delete</span><span class="p">(</span> <span class="n">path</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="DBDir.copy_dir"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBDir.copy_dir">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">copy_dir</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> 
+                    <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">remote_Dir</span> <span class="o">=</span> <span class="n">DBDir</span><span class="p">(</span> <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">,</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">conn</span> <span class="p">)</span>
+        <span class="n">remote_Paths</span> <span class="o">=</span> <span class="n">remote_Dir</span><span class="o">.</span><span class="n">walk_contents_Paths</span><span class="p">(</span> <span class="n">block_dirs</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span>
+        
+        <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">remote_Path</span> <span class="ow">in</span> <span class="n">remote_Paths</span><span class="p">:</span>
+            <span class="n">rel_Path</span> <span class="o">=</span> <span class="n">remote_Path</span><span class="o">.</span><span class="n">get_rel</span><span class="p">(</span> <span class="n">remote_Dir</span> <span class="p">)</span>
+            <span class="n">destination_path</span> <span class="o">=</span> <span class="n">do</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">destination</span><span class="p">,</span> <span class="n">rel_Path</span><span class="o">.</span><span class="n">path</span> <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">remote_Path</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">destination</span> <span class="o">=</span> <span class="n">destination_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+                <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+            
+        <span class="k">assert</span> <span class="n">valid</span></div>
+
+<div class="viewcode-block" id="DBDir.upload_dir"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBDir.upload_dir">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">upload_dir</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                        <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">local_Dir</span> <span class="o">=</span> <span class="n">do</span><span class="o">.</span><span class="n">Dir</span><span class="p">(</span> <span class="n">destination</span> <span class="p">)</span>
+        <span class="n">local_Paths</span> <span class="o">=</span> <span class="n">local_Dir</span><span class="o">.</span><span class="n">walk_contents_Paths</span><span class="p">(</span> <span class="n">block_dirs</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span>
+
+        <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">local_Path</span> <span class="ow">in</span> <span class="n">local_Paths</span><span class="p">:</span>
+            <span class="n">rel_Path</span> <span class="o">=</span> <span class="n">local_Path</span><span class="o">.</span><span class="n">get_rel</span><span class="p">(</span> <span class="n">local_Dir</span> <span class="p">)</span>
+            <span class="n">remote_Path</span> <span class="o">=</span> <span class="n">DBPath</span><span class="p">(</span> <span class="n">path</span> <span class="o">=</span> <span class="n">do</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">path</span><span class="p">,</span> <span class="n">rel_Path</span><span class="o">.</span><span class="n">path</span> <span class="p">),</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">conn</span> <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">remote_Path</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">Destination</span> <span class="o">=</span> <span class="n">local_Path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+                <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">assert</span> <span class="n">valid</span></div>
+
+<div class="viewcode-block" id="DBDir.download_dir"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBDir.download_dir">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">download_dir</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                        <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">remote_Dir</span> <span class="o">=</span> <span class="n">DBDir</span><span class="p">(</span> <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">,</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">conn</span> <span class="p">)</span>
+        <span class="n">remote_Paths</span> <span class="o">=</span> <span class="n">remote_Dir</span><span class="o">.</span><span class="n">walk_contents_Paths</span><span class="p">(</span> <span class="n">block_dirs</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span>
+        <span class="n">local_Dir</span> <span class="o">=</span> <span class="n">do</span><span class="o">.</span><span class="n">Dir</span><span class="p">(</span> <span class="n">destination</span> <span class="p">)</span>
+        
+        <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">remote_Path</span> <span class="ow">in</span> <span class="n">remote_Paths</span><span class="p">:</span>
+            <span class="n">rel_Path</span> <span class="o">=</span> <span class="n">remote_Path</span><span class="o">.</span><span class="n">get_rel</span><span class="p">(</span> <span class="n">remote_Dir</span> <span class="p">)</span>
+            <span class="n">local_Path</span> <span class="o">=</span> <span class="n">do</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span> <span class="n">local_Dir</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">rel_Path</span><span class="o">.</span><span class="n">path</span> <span class="p">)</span> <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">remote_Path</span><span class="o">.</span><span class="n">download</span><span class="p">(</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">Destination</span> <span class="o">=</span> <span class="n">local_Path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+                <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">assert</span> <span class="n">valid</span></div>
+
+<div class="viewcode-block" id="DBDir.list_files_dir"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBDir.list_files_dir">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">list_files_dir</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span>
+                            <span class="n">print_off</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_list_folder</span><span class="p">(</span> <span class="n">path</span> <span class="p">)</span><span class="o">.</span><span class="n">entries</span>
+
+        <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">file</span><span class="p">,</span> <span class="n">dropbox</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">FileMetadata</span> <span class="p">):</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">file</span><span class="o">.</span><span class="n">name</span> <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">print_off</span><span class="p">:</span>
+            <span class="n">ps</span><span class="o">.</span><span class="n">print_for_loop</span><span class="p">(</span> <span class="n">filenames</span> <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">filenames</span></div>
+
+<div class="viewcode-block" id="DBDir.list_subfolders_dir"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBDir.list_subfolders_dir">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">list_subfolders_dir</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span>
+                            <span class="n">print_off</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_list_folder</span><span class="p">(</span> <span class="n">path</span> <span class="p">)</span><span class="o">.</span><span class="n">entries</span>
+
+        <span class="n">subfolders</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">folder</span><span class="p">,</span> <span class="n">dropbox</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">FolderMetadata</span> <span class="p">):</span>
+                <span class="n">subfolders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">folder</span><span class="o">.</span><span class="n">name</span> <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">print_off</span><span class="p">:</span>
+            <span class="n">ps</span><span class="o">.</span><span class="n">print_for_loop</span><span class="p">(</span> <span class="n">subfolders</span> <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">subfolders</span></div></div>
+
+
+
+<div class="viewcode-block" id="DBPath"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPath">[docs]</a><span class="k">class</span> <span class="nc">DBPath</span><span class="p">(</span> <span class="n">DBDir</span><span class="p">,</span> <span class="n">do</span><span class="o">.</span><span class="n">RemotePath</span> <span class="p">):</span>
+
+    <span class="n">STATIC_METHOD_SUFFIX</span> <span class="o">=</span> <span class="s1">&#39;_path&#39;</span>
+    <span class="n">INSTANCE_METHOD_ATTS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">,</span><span class="s1">&#39;conn&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">DBDir</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+        <span class="n">do</span><span class="o">.</span><span class="n">RemotePath</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DIR_CLASS</span> <span class="o">=</span> <span class="n">DBDir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PATH_CLASS</span> <span class="o">=</span> <span class="n">DBPath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DIRS_CLASS</span> <span class="o">=</span> <span class="n">DBDirs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PATHS_CLASS</span> <span class="o">=</span> <span class="n">DBPaths</span>
+
+<div class="viewcode-block" id="DBPath.exists_path"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPath.exists_path">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">exists_path</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span> <span class="c1">#metadata for root folder isn&#39;t supported, just return True</span>
+            <span class="k">return</span> 
+
+        <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_get_metadata</span><span class="p">(</span> <span class="n">path</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="DBPath.upload_path"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPath.upload_path">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">upload_path</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                        <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_upload</span><span class="p">(</span> <span class="n">ps</span><span class="o">.</span><span class="n">read_text_file</span><span class="p">(</span> <span class="n">destination</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;rb&#39;</span> <span class="p">),</span> <span class="n">path</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="DBPath.download_path"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPath.download_path">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">download_path</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                        <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_download_to_file</span><span class="p">(</span> <span class="n">destination</span><span class="p">,</span> <span class="n">path</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="DBPath.remove_path"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPath.remove_path">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_path</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_delete</span><span class="p">(</span> <span class="n">path</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="DBPath.get_size_path"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPath.get_size_path">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_size_path</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_get_metadata</span><span class="p">(</span> <span class="n">path</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">size</span></div>
+
+<div class="viewcode-block" id="DBPath.write_path"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPath.write_path">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">write_path</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="bp">self</span> <span class="o">=</span> <span class="n">DBPath</span><span class="p">(</span> <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">,</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">conn</span> <span class="p">)</span>
+        <span class="n">temp_Path</span> <span class="o">=</span> <span class="n">do</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span> <span class="s1">&#39;TEMP&#39;</span> <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">temp_Path</span><span class="o">.</span><span class="n">write</span><span class="p">(</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+            <span class="k">assert</span> <span class="kc">False</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span> <span class="n">Destination</span> <span class="o">=</span> <span class="n">temp_Path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+            <span class="k">assert</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">temp_Path</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+            <span class="k">assert</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="DBPath.create_path"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPath.create_path">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">create_path</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">string</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="bp">self</span> <span class="o">=</span> <span class="n">DBPath</span><span class="p">(</span> <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">,</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">conn</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span> <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+            <span class="k">assert</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="DBPath.read_path"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPath.read_path">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">read_path</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">temp_Path</span> <span class="o">=</span> <span class="n">do</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span> <span class="s1">&#39;TEMP&#39;</span> <span class="p">)</span>
+
+        <span class="bp">self</span> <span class="o">=</span> <span class="n">DBPath</span><span class="p">(</span> <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">,</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">conn</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">download</span><span class="p">(</span> <span class="n">Destination</span> <span class="o">=</span> <span class="n">temp_Path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+            
+        <span class="n">contents</span> <span class="o">=</span> <span class="n">temp_Path</span><span class="o">.</span><span class="n">read</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+        <span class="n">temp_Path</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span> <span class="n">override</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+                
+        <span class="k">return</span> <span class="n">contents</span></div>
+
+<div class="viewcode-block" id="DBPath.copy_path"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPath.copy_path">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">copy_path</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                    <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_copy</span><span class="p">(</span> <span class="n">path</span><span class="p">,</span> <span class="n">destination</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="DBPath.rename_path"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPath.rename_path">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">rename_path</span><span class="p">(</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conn</span><span class="p">:</span> <span class="n">dropbox_connection</span><span class="o">.</span><span class="n">Connection</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                    <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">destination_bucket</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">conn</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">files_move</span><span class="p">(</span> <span class="n">path</span><span class="p">,</span> <span class="n">destination</span> <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DBDirs"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBDirs">[docs]</a><span class="k">class</span> <span class="nc">DBDirs</span><span class="p">(</span> <span class="n">do</span><span class="o">.</span><span class="n">RemoteDirs</span> <span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">do</span><span class="o">.</span><span class="n">RemoteDirs</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DIR_CLASS</span> <span class="o">=</span> <span class="n">DBDir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PATH_CLASS</span> <span class="o">=</span> <span class="n">DBPath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DIRS_CLASS</span> <span class="o">=</span> <span class="n">DBDirs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PATHS_CLASS</span> <span class="o">=</span> <span class="n">DBPaths</span></div>
+
+<div class="viewcode-block" id="DBPaths"><a class="viewcode-back" href="../../dropbox_connection.html#dropbox_connection.db_dir_ops.DBPaths">[docs]</a><span class="k">class</span> <span class="nc">DBPaths</span><span class="p">(</span> <span class="n">DBDirs</span><span class="p">,</span> <span class="n">do</span><span class="o">.</span><span class="n">RemotePaths</span> <span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">DBDirs</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
+        <span class="n">do</span><span class="o">.</span><span class="n">RemotePaths</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DIR_CLASS</span> <span class="o">=</span> <span class="n">DBDir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PATH_CLASS</span> <span class="o">=</span> <span class="n">DBPath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DIRS_CLASS</span> <span class="o">=</span> <span class="n">DBDirs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PATHS_CLASS</span> <span class="o">=</span> <span class="n">DBPaths</span></div>
+
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, James Kabbes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

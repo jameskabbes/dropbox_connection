@@ -1,0 +1,37 @@
+dropbox\_connection package
+===========================
+
+Submodules
+----------
+
+dropbox\_connection.Connection module
+-------------------------------------
+
+.. automodule:: dropbox_connection.Connection
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dropbox\_connection.db\_dir\_ops module
+---------------------------------------
+
+.. automodule:: dropbox_connection.db_dir_ops
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dropbox\_connection.dropbox\_support\_functions module
+------------------------------------------------------
+
+.. automodule:: dropbox_connection.dropbox_support_functions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: dropbox_connection
+   :members:
+   :undoc-members:
+   :show-inheritance:
