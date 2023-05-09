@@ -134,6 +134,15 @@ class DBDir( do.RemoteDir ):
 
         return subfolders
 
+    @do.inherited_instance_method
+    def get_link( self, *args, **kwargs ):
+        pass
+
+    @staticmethod
+    def get_link_dir( path: str, conn: dropbox_connection.Connection,
+                            print_off: bool = False, **kwargs ):
+        
+        return conn.db.sharing_create_shared_link( path ).url
 
 
 class DBPath( DBDir, do.RemotePath ):
