@@ -9,7 +9,7 @@ import os
 def create_sharing_folder( db_dir ):
 
     '''create a sharing folder at the given dropbox dir'''
-    return Dropbox.sharing_share_folder( db_dir )
+    return dropbox.sharing_share_folder( db_dir )
 
 def get_access_level( access_level_key = None ):
 
@@ -43,7 +43,7 @@ def get_add_member( member_selector, AccessLevel ):
 
 def sharing_add_folder_member( shared_folder_id, add_member, custom_message ):
 
-    Dropbox.sharing_add_folder_member( shared_folder_id, [add_member], quiet = False, custom_message = custom_message )
+    dropbox.sharing_add_folder_member( shared_folder_id, [add_member], quiet = False, custom_message = custom_message )
 
 def get_url_from_link_object( Link ):
 
@@ -55,7 +55,7 @@ def sharing_create_shared_link( db_path, short_url = False, return_url = True ):
     path is a path to a dropbox folder. ex: Pictures/test_folder
     '''
 
-    Link = Dropbox.sharing_create_shared_link( db_path, short_url = short_url )
+    Link = dropbox.sharing_create_shared_link( db_path, short_url = short_url )
 
     if return_url:
         return get_url_from_link_object( Link )

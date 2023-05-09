@@ -8,3 +8,4 @@ _cwd_Dir = do.Dir( do.get_cwd() )
 
 from .db_dir_ops import *
 from .Connection import *
+from .Client import *

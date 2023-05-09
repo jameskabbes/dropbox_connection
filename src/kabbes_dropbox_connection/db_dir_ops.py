@@ -3,7 +3,7 @@ import dir_ops as do
 import py_starter as ps
 from typing import Tuple, List
 
-import dropbox_connection
+import kabbes_dropbox_connection
 import dropbox
 
 class DBDir( do.RemoteDir ):
@@ -26,18 +26,18 @@ class DBDir( do.RemoteDir ):
         self.PATHS_CLASS = DBPaths
 
     @staticmethod
-    def create_dir( path: str, conn: dropbox_connection.Connection, **kwargs ):
+    def create_dir( path: str, conn: kabbes_dropbox_connection.Connection, **kwargs ):
         conn.db.files_create_folder_v2( path )
 
     @staticmethod
-    def exists_dir( path: str, conn: dropbox_connection.Connection, **kwargs ):
+    def exists_dir( path: str, conn: kabbes_dropbox_connection.Connection, **kwargs ):
         if path == '': #metadata for root folder isn't supported, just return True
             return 
 
         conn.db.files_get_metadata( path )
     
     @staticmethod
-    def get_size_dir( path: str, conn: dropbox_connection.Connection, **kwargs ):
+    def get_size_dir( path: str, conn: kabbes_dropbox_connection.Connection, **kwargs ):
         
         self = DBDir( path = path, conn = conn )
         Paths_inst = self.list_contents_Paths( block_dirs=True, block_paths=False )
@@ -50,11 +50,11 @@ class DBDir( do.RemoteDir ):
         return bytes
 
     @staticmethod
-    def remove_dir( path: str, conn: dropbox_connection.Connection, **kwargs ):
+    def remove_dir( path: str, conn: kabbes_dropbox_connection.Connection, **kwargs ):
         conn.db.files_delete( path )
 
     @staticmethod
-    def copy_dir( path: str, conn: dropbox_connection.Connection, *args, 
+    def copy_dir( path: str, conn: kabbes_dropbox_connection.Connection, *args, 
                     destination: str = '', **kwargs ):
 
         remote_Dir = DBDir( path = path, conn = conn )
@@ -70,7 +70,7 @@ class DBDir( do.RemoteDir ):
         assert valid
 
     @staticmethod
-    def upload_dir( path: str, conn: dropbox_connection.Connection, *args,
+    def upload_dir( path: str, conn: kabbes_dropbox_connection.Connection, *args,
                         destination: str = '', **kwargs ):
 
         local_Dir = do.Dir( destination )
@@ -86,7 +86,7 @@ class DBDir( do.RemoteDir ):
         assert valid
 
     @staticmethod
-    def download_dir( path: str, conn: dropbox_connection.Connection, *args,
+    def download_dir( path: str, conn: kabbes_dropbox_connection.Connection, *args,
                         destination: str = '', **kwargs ):
 
         remote_Dir = DBDir( path = path, conn = conn )
@@ -103,7 +103,7 @@ class DBDir( do.RemoteDir ):
         assert valid
 
     @staticmethod
-    def list_files_dir( path: str, conn: dropbox_connection.Connection,
+    def list_files_dir( path: str, conn: kabbes_dropbox_connection.Connection,
                             print_off: bool = False, **kwargs ):
 
         result = conn.db.files_list_folder( path ).entries
@@ -119,7 +119,7 @@ class DBDir( do.RemoteDir ):
         return filenames
 
     @staticmethod
-    def list_subfolders_dir( path: str, conn: dropbox_connection.Connection,
+    def list_subfolders_dir( path: str, conn: kabbes_dropbox_connection.Connection,
                             print_off: bool = False, **kwargs ):
 
         result = conn.db.files_list_folder( path ).entries
@@ -139,7 +139,7 @@ class DBDir( do.RemoteDir ):
         pass
 
     @staticmethod
-    def get_link_dir( path: str, conn: dropbox_connection.Connection,
+    def get_link_dir( path: str, conn: kabbes_dropbox_connection.Connection,
                             print_off: bool = False, **kwargs ):
         
         return conn.db.sharing_create_shared_link( path ).url
@@ -160,36 +160,36 @@ class DBPath( DBDir, do.RemotePath ):
         self.PATHS_CLASS = DBPaths
 
     @staticmethod
-    def exists_path( path: str, conn: dropbox_connection.Connection, **kwargs ):
+    def exists_path( path: str, conn: kabbes_dropbox_connection.Connection, **kwargs ):
         if path == '': #metadata for root folder isn't supported, just return True
             return 
 
         conn.db.files_get_metadata( path )
 
     @staticmethod
-    def upload_path( path: str, conn: dropbox_connection.Connection, *args,
+    def upload_path( path: str, conn: kabbes_dropbox_connection.Connection, *args,
                         destination: str = '', **kwargs ):
 
         conn.db.files_upload( ps.read_text_file( destination, mode = 'rb' ), path )
 
     @staticmethod
-    def download_path( path: str, conn: dropbox_connection.Connection, *args,
+    def download_path( path: str, conn: kabbes_dropbox_connection.Connection, *args,
                         destination: str = '', **kwargs ):
 
         conn.db.files_download_to_file( destination, path )
 
     @staticmethod
-    def remove_path( path: str, conn: dropbox_connection.Connection, **kwargs ):
+    def remove_path( path: str, conn: kabbes_dropbox_connection.Connection, **kwargs ):
         conn.db.files_delete( path )
 
     @staticmethod
-    def get_size_path( path: str, conn: dropbox_connection.Connection, **kwargs ):
+    def get_size_path( path: str, conn: kabbes_dropbox_connection.Connection, **kwargs ):
 
         result = conn.db.files_get_metadata( path )
         return result.size
 
     @staticmethod
-    def write_path( path: str, conn: dropbox_connection.Connection, mode = 'w', **kwargs ):
+    def write_path( path: str, conn: kabbes_dropbox_connection.Connection, mode = 'w', **kwargs ):
 
         self = DBPath( path = path, conn = conn )
         temp_Path = do.Path( 'TEMP' )
@@ -204,14 +204,14 @@ class DBPath( DBDir, do.RemotePath ):
             assert False
 
     @staticmethod
-    def create_path( path: str, conn: dropbox_connection.Connection, *args, string: str = '', mode = 'w', **kwargs ):
+    def create_path( path: str, conn: kabbes_dropbox_connection.Connection, *args, string: str = '', mode = 'w', **kwargs ):
 
         self = DBPath( path = path, conn = conn )
         if not self.write( string = string, mode = mode, **kwargs ):
             assert False
 
     @staticmethod
-    def read_path( path: str, conn: dropbox_connection.Connection, *args, **kwargs ):
+    def read_path( path: str, conn: kabbes_dropbox_connection.Connection, *args, **kwargs ):
 
         temp_Path = do.Path( 'TEMP' )
 
@@ -224,13 +224,13 @@ class DBPath( DBDir, do.RemotePath ):
         return contents
 
     @staticmethod
-    def copy_path( path: str, conn: dropbox_connection.Connection, *args,
+    def copy_path( path: str, conn: kabbes_dropbox_connection.Connection, *args,
                     destination: str = '', **kwargs ):
 
         conn.db.files_copy( path, destination )
 
     @staticmethod
-    def rename_path( path: str, conn: dropbox_connection.Connection, *args,
+    def rename_path( path: str, conn: kabbes_dropbox_connection.Connection, *args,
                     destination: str = '', destination_bucket = None, **kwargs ):
 
         conn.db.files_move( path, destination )
